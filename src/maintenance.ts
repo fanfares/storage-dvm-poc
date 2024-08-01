@@ -1,7 +1,11 @@
 import { log } from './util/string'
+log('INIT', 'A')
 import { needStorage, requestStorage, getStorageInvoice } from './storage'
+log('INIT', 'B')
 import { approveStorageOffer } from './policy'
+log('INIT', 'C')
 import { checkInvoice, payInvoice } from './wallets/index'
+log('INIT', 'D')
 
 export function initMaintenance(): Promise<void> {
   return checkMaintenance(0)
