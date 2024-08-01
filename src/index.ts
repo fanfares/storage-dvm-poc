@@ -4,10 +4,15 @@ import { log } from './util/string'
 log('INIT', '-- start --')
 
 import { initMaintenance, checkMaintenance } from './maintenance'
+log('INIT', 'a')
 import { performUpload } from './upload'
+log('INIT', 'b')
 import { watchForUploads } from './watchForUploads'
+log('INIT', 'c')
 import { SUPPORTED_WALLET_TYPES } from './wallets/index'
+log('INIT', 'd')
 import fs from 'fs'
+log('INIT', 'e')
 
 // id precisions for logging
 const FILE_PREC = +(process.env.FILE_PREC || 8)
