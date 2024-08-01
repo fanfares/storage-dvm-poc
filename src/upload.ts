@@ -1,7 +1,7 @@
 import { log, humanReadableAge } from './util/string'
 import { getPublicKey } from './util/coracle/misc'
 import { createEvent } from '@welshman/util'
-import { getSigner } from './util/signer'
+import { signer } from './util/signer'
 import fs from 'fs'
 import path from 'path'
 import { createReadableStreamFromReadable } from '@remix-run/node'
@@ -14,7 +14,6 @@ const EVENT_PREC = +(process.env.EVENT_PREC || 4)
 export function performUpload(filename: string, size: number, hash: string) {
   return new Promise((resolve, reject) => {
     log('UPLD', `uploading ${filename}`)
-    const signer = getSigner()
     const uploadAuth = signer.signAsUser(signer.prepAsUser(createEvent(
       22242,
       {

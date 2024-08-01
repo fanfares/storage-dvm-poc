@@ -3,12 +3,9 @@ import { getPublicKey } from './coracle/misc'
 import { Connect } from './coracle/connect'
 import { Signer } from './coracle/signer'
 
-const signer = createSigner()
-export function getSigner(): Signer {
-  return signer
-}
+export let signer: Signer
 
-function createSigner(): Signer {
+export function createSigner() {
   // The following section initializes the code borrowed from Coracle
 
   let session: any
@@ -22,9 +19,9 @@ function createSigner(): Signer {
   let connect = new Connect(session)
   // if (!connect.isEnabled()) log('DBUG', `connect enabled ${connect.isEnabled()}`)
 
-  const signer = new Signer(session, connect)
-  if (!signer.isEnabled()) log('DBUG', `signer enabled ${signer.isEnabled()}`)
+  const signerInstance = new Signer(session, connect)
+  if (!signerInstance.isEnabled()) log('DBUG', `signer enabled ${signerInstance.isEnabled()}`)
 
-  return signer
+  signer = signerInstance
 }
 

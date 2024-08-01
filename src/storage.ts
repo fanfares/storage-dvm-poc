@@ -1,11 +1,10 @@
 import { log, humanReadableAge } from './util/string'
 import { createEvent } from '@welshman/util'
-import { getSigner } from './util/signer'
+import { signer } from './util/signer'
 
 export function needStorage(): Promise<string> {
   return new Promise((resolve, reject) => {
     log('STOR', 'checking storage')
-    const signer = getSigner()
     const requestAccount = signer.signAsUser(signer.prepAsUser(createEvent(
       22242,
       {
@@ -41,7 +40,6 @@ export function needStorage(): Promise<string> {
 export function requestStorage(): Promise<{ satCost: number, relays: string[], description: string, offerId: string, payUrl: string }> {
   return new Promise((resolve, reject) => {
     log('STOR', `requesting more storage`)
-    const signer = getSigner()
     const requestCredit = signer.signAsUser(signer.prepAsUser(createEvent(
       22242,
       {
@@ -88,7 +86,6 @@ export function getStorageInvoice(sats: number, relays: string[], desc: string, 
   return new Promise((resolve, reject) => {
     log('STOR', 'retrieving storage invoice')
     const msatStr = ''+Math.ceil(sats*1000)
-    const signer = getSigner()
     const payment = signer.signAsUser(signer.prepAsUser(createEvent(
       9734,
       {

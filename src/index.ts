@@ -1,18 +1,14 @@
 import 'dotenv/config'
 import { log } from './util/string'
+import { createSigner } from './util/signer'
 
 log('INIT', '-- start --')
 
 import { initMaintenance, checkMaintenance } from './maintenance'
-log('INIT', 'a')
 import { performUpload } from './upload'
-log('INIT', 'b')
 import { watchForUploads } from './watchForUploads'
-log('INIT', 'c')
 import { SUPPORTED_WALLET_TYPES } from './wallets/index'
-log('INIT', 'd')
 import fs from 'fs'
-log('INIT', 'e')
 
 // id precisions for logging
 const FILE_PREC = +(process.env.FILE_PREC || 8)
@@ -30,6 +26,8 @@ if (!process.env.DVM_NSEC_HEX) {
 
   fs.mkdir(`${process.env.DB_DIR||'db'}`, { recursive: true }, (err) => { if (err) log('INIT', 'error on DB_DIR: ' + err) })
   fs.mkdir(`${process.env.INCOMING_DIR||'incoming'}`, { recursive: true }, (err) => { if (err) log('INIT', 'error on INCOMING_DIR: ' + err) })
+
+  createSigner()
 
   initMaintenance().then(() => {
     watchForUploads((filename, hash, size) => {
